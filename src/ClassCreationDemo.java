@@ -32,7 +32,7 @@ public class ClassCreationDemo {
         String path = "D:\\dev_edu\\STC13_HT\\HT07_RuntimeCreateClass\\src\\";
         File file = new File(path);
         File src = new File(new File(path), "SomeClass.java");
-        Files.write(src.toPath(), source.getBytes(StandardCharsets.UTF_8));
+        Files.write(src.toPath(), source.getBytes());
         String javaFile = src.getPath();
         System.out.println(".java file created  " + javaFile);
 
@@ -42,10 +42,10 @@ public class ClassCreationDemo {
         System.out.println(".class file compiled");
 
         // загрузка класса и запуск метода
-        System.out.println("Method run result:");
         ClassLoader originalLoader = URLClassLoader.newInstance(new URL[]{file.toURI().toURL()});
         SomeClassLoader someClassLoader = new SomeClassLoader(originalLoader,"SomeClass", path);
         Class mainClass = someClassLoader.loadClass("SomeClass");
+        System.out.println("Method run result:");
         mainClass.getMethod("doWord").invoke(mainClass.newInstance(), null);
     }
 }
